@@ -8,6 +8,10 @@
 
 <ion-content>
   <div class="ion-padding">
-    PokéFight
+    <ion-list>
+      <ion-item *ngFor="let pokemon of pokemons">
+        <p>{{ pokemon.name }}</p>
+      </ion-item>
+    </ion-list>
   </div>
 </ion-content>
