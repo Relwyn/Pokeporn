@@ -56,11 +56,9 @@ export class HomePage {
         return this.pokemons.findIndex(pokemon => pokemon.id === id);
     }
 
-    searchByName() {
+    searchByName(name = this.inputSearch) {
 
-        this.pokeApiService.getPokemonByName(this.inputSearch).subscribe((val) => {
-            console.log(val)
-
+        this.pokeApiService.getPokemonByName(name).subscribe((val) => {
             this.openPokedex(val)
         })
     }
@@ -70,9 +68,32 @@ export class HomePage {
         const alert = await this.modal.create({
             header: data.name + '   n° ' + data.id,
             subHeader: this.typesIntoString(data),
-            message: '<div>' +
-            '<img src="' + data.sprites.front_default + '">' +
-            '</div>',
+            message: '<ion-list>' +
+                '<ion-item>' +
+                '<p>Weight: ' + data.weight + 'kg</p>' +
+                '</ion-item>' +
+                '<ion-item>' +
+                '<img src="' + data.sprites.front_default + '">' +
+                '</ion-item>' +
+                '<ion-item>' +
+                '<p>hp: ' + data.stats[5].base_stat + '</p>' +
+                '</ion-item>' +
+                '<ion-item>' +
+                '<p>attack: ' + data.stats[4].base_stat + '</p>' +
+                '</ion-item>' +
+                '<ion-item>' +
+                '<p>defense: ' + data.stats[3].base_stat + '</p>' +
+                '</ion-item>' +
+                '<ion-item>' +
+                '<p>speed: ' + data.stats[0].base_stat + '</p>' +
+                '</ion-item>' +
+                '<ion-item>' +
+                '<p>special-attack: ' + data.stats[2].base_stat + '</p>' +
+                '</ion-item>' +
+                '<ion-item>' +
+                '<p>special-defense: ' + data.stats[1].base_stat + '</p>' +
+                '</ion-item>' +
+                '</ion-list>',
             buttons: ['OK']
         });
 
