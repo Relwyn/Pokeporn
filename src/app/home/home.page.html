@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Ionic Blank
+      PokéFight
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -10,7 +10,7 @@
   <div class="ion-padding">
     <ion-list>
       <ion-item>
-        <ion-input [(ngModel)]="inputSearch"></ion-input>
+        <ion-input [(ngModel)]="inputSearch" placeholder="Chercher par nom"></ion-input>
         <ion-button (click)="searchByName()">Rechercher</ion-button>
       </ion-item>
       <ion-item *ngFor="let pokemon of pokemons">
