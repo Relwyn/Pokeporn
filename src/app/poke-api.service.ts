@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class PokeApiService {
 
-  private allPokemonsUrl: string = "http://pokeapi.co/api/v2"
+  private allPokemonsUrl: string = "http://pokeapi.co/api/v2/pokemon/"
 
   constructor(private http: HttpClient) { }
 

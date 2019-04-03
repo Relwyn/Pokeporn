@@ -1,7 +1,6 @@
 import { Component } from '@angular/core'
 import { Router } from '@angular/router'
 import { PokeApiService } from "../poke-api.service";
-import {TransferDataService} from "../../../../travel/src/app/transfer-data.service";
 
 //import { IonicStorageModule } from "@ionic/storage";
 
@@ -15,9 +14,18 @@ export class HomePage {
 
     constructor (
         private router: Router,
-        private TransferDataService: TransferDataService
-    ) {}
+        private pokeApiService: PokeApiService
+    )
+    {
+        this.getPokemons()
+    }
 
-    
+    getPokemons() {
+
+      this.pokeApiService.getPokemons().subscribe((val) => {
+          let result: any = val
+          console.log(result)
+      })
+    }
 
 }
