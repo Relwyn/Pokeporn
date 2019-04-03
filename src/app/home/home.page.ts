@@ -25,6 +25,7 @@ export class HomePage {
         this.getPokemons()
     }
 
+    inputSearch: string
     pokemons: Pokemon[] = []
 
     getPokemons() {
@@ -49,6 +50,13 @@ export class HomePage {
 
     getIndexWithId(id) {
         return this.pokemons.findIndex(pokemon => pokemon.id === id)
+    }
+
+    searchByName() {
+
+        this.pokeApiService.getPokemonByName(this.inputSearch).subscribe((val) => {
+            console.log(val)
+        })
     }
 
 }

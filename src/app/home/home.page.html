@@ -9,6 +9,10 @@
 <ion-content>
   <div class="ion-padding">
     <ion-list>
+      <ion-item>
+        <ion-input [(ngModel)]="inputSearch"></ion-input>
+        <ion-button (click)="searchByName()">Rechercher</ion-button>
+      </ion-item>
       <ion-item *ngFor="let pokemon of pokemons">
         <p>{{ pokemon.name }}</p>
         <ion-icon (click)="setPokemonAsFavorite(pokemon.id)" *ngIf="!pokemon.favorite" name="star-outline"></ion-icon>

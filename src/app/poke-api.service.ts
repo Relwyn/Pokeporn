@@ -6,11 +6,15 @@ import { HttpClient } from '@angular/common/http';
 })
 export class PokeApiService {
 
-  private allPokemonsUrl: string = "http://pokeapi.co/api/v2/pokemon/?offset=0&limit=100"
+  private apiUrl: string = 'http://pokeapi.co/api/v2/pokemon/'
 
   constructor(private http: HttpClient) { }
 
   getPokemons() {
-    return this.http.get(this.allPokemonsUrl)
+    return this.http.get(this.apiUrl + '?offset=0&limit=100')
+  }
+
+  getPokemonByName(name) {
+    return this.http.get(this.apiUrl + name)
   }
 }
