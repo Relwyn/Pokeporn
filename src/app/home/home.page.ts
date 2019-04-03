@@ -1,7 +1,8 @@
 import { Component } from '@angular/core'
 import { Router } from '@angular/router'
 import { PokeApiService } from '../poke-api.service'
-import { AlertController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular'
+import { Storage } from '@ionic/storage'
 
 class Pokemon {
     id: number;
@@ -20,13 +21,21 @@ export class HomePage {
     constructor (
         private router: Router,
         private pokeApiService: PokeApiService,
-        private modal: AlertController
+        private modal: AlertController,
+        private localStorage: Storage
     ) {
-        this.getPokemons();
+        this.getPokemons()
+
+        this.localStorage.set('favoritePokemons', [])
+
+        this.localStorage.get('favoritePokemons').then((val) => {
+            console.log(val)
+        })
     }
 
-    inputSearch: string;
-    pokemons: Pokemon[] = [];
+    inputSearch: string
+    pokemons: Pokemon[] = []
+    favoritePokemonsSaved: Pokemon[] = []
 
     getPokemons() {
 
@@ -49,7 +58,14 @@ export class HomePage {
     }
 
     setPokemonAsFavorite(id) {
-        this.pokemons[this.getIndexWithId(id)].favorite = !this.pokemons[this.getIndexWithId(id)].favorite;
+        this.pokemons[this.getIndexWithId(id)].favorite = !this.pokemons[this.getIndexWithId(id)].favorite
+
+        this.favoritePokemonsSaved.push(this.pokemons[this.getIndexWithId(id)])
+        this.pushItemInLocalStorage('favoritePokemons', this.favoritePokemonsSaved)
+    }
+
+    pushItemInLocalStorage(name, item) {
+        this.localStorage.set(name, item)
     }
 
     getIndexWithId(id) {
@@ -70,10 +86,10 @@ export class HomePage {
             subHeader: this.typesIntoString(data),
             message: '<ion-list>' +
                 '<ion-item>' +
-                '<p>Weight: ' + data.weight + 'kg</p>' +
+                '<img src="' + data.sprites.front_default + '">' +
                 '</ion-item>' +
                 '<ion-item>' +
-                '<img src="' + data.sprites.front_default + '">' +
+                '<p>Weight: ' + data.weight + 'kg</p>' +
                 '</ion-item>' +
                 '<ion-item>' +
                 '<p>hp: ' + data.stats[5].base_stat + '</p>' +

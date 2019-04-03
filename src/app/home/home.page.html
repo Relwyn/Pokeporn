@@ -14,17 +14,9 @@
         <ion-button (click)="searchByName()">Rechercher</ion-button>
       </ion-item>
       <ion-item *ngFor="let pokemon of pokemons">
-        <ion-grid>
-          <ion-row>
-            <ion-col (click)="searchByName(pokemon.name)">
-              <p >{{ pokemon.name }}</p>
-            </ion-col>
-            <ion-col (click)="setPokemonAsFavorite(pokemon.id)">
-              <ion-icon *ngIf="!pokemon.favorite" name="star-outline"></ion-icon>
-              <ion-icon *ngIf="pokemon.favorite" name="star"></ion-icon>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
+        <ion-icon (click)="setPokemonAsFavorite(pokemon.id)" *ngIf="!pokemon.favorite" name="star-outline"></ion-icon>
+        <ion-icon (click)="setPokemonAsFavorite(pokemon.id)" *ngIf="pokemon.favorite" name="star"></ion-icon>
+        <p (click)="searchByName(pokemon.name)">{{ pokemon.name }}</p>
       </ion-item>
     </ion-list>
   </div>

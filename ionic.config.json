@@ -1,5 +1,7 @@
 {
   "name": "PokeFight",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
