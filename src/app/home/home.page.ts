@@ -40,7 +40,7 @@ export class HomePage {
               self.pokemons.push(result);
           });
 
-          val.results.forEach(function(element, index) {
+          res.results.forEach(function(element, index) {
               element.id = index
               element.favorite = false
               self.pokemons.push(element)
