@@ -7,7 +7,6 @@ const routes: Routes = [
   { path: 'list-profil', loadChildren: './list-profil/list-profil.module#ListProfilPageModule' },
   { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
   { path: 'fight', loadChildren: './fight/fight.module#FightPageModule' },
-
 ];
 
 @NgModule({
