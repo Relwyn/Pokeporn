@@ -34,10 +34,40 @@
         <ion-button (click)="searchByName()">Rechercher</ion-button>
       </ion-item>
       <ion-item *ngFor="let pokemon of pokemons">
-        <p>{{ pokemon.name }}</p>
-        <ion-button (click)="addToTeam(pokemon)">Add to team</ion-button>
-        <ion-button (click)="openPokedex(pokemon)">Pokedex</ion-button>
-        <ion-button (click)="removePokemon(pokemon)">Remove</ion-button>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-row>
+                <img src="{{pokemon.sprites.front_default}}">
+                <ion-title>{{ pokemon.name }}</ion-title>
+              </ion-row>
+            </ion-col>
+            <ion-col>
+              <span *ngFor="let pokemonType of pokemon.types">
+                <span *ngFor="let type of types">
+                  <img *ngIf="pokemonType.name === type.name" src="{{ type.imageUrl }}" alt="">
+                </span>
+              </span>
+            </ion-col>
+            <ion-col>
+              <ion-row>
+                <ion-button (click)="addToTeam(pokemon)">Add to team</ion-button>
+                <ion-button (click)="openPokedex(pokemon)">Pokedex</ion-button>
+                <ion-button (click)="removePokemon(pokemon)"><ion-icon name="trash"></ion-icon></ion-button>
+              </ion-row>
+              <ion-row>
+                <ion-card class="ion-padding">
+                  <b>hp: </b>{{ pokemon.stats[5].base_stat }}
+                  <b>attack: </b>{{ pokemon.stats[4].base_stat }}
+                  <b>defense: </b>{{ pokemon.stats[3].base_stat }}
+                  <b>speed: </b>{{ pokemon.stats[0].base_stat }}
+                  <b>special-attack: </b>{{ pokemon.stats[2].base_stat }}
+                  <b>special-defense: </b>{{ pokemon.stats[1].base_stat }}
+                </ion-card>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
       </ion-item>
     </ion-list>
   </div>

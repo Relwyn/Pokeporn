@@ -11,6 +11,11 @@ class Pokemon {
     sprites: any
 }
 
+class Types {
+    name: string
+    imageUrl: string
+}
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -29,8 +34,85 @@ export class HomePage {
         this.getTeam()
     }
 
-
     inputSearch: string
+    types: Types[] = [
+        {
+            name: 'normal',
+            imageUrl: 'https://vignette.wikia.nocookie.net/pokemon/images/6/61/Type_Normal.gif'
+        },
+        {
+            name: 'fire',
+            imageUrl: 'https://vignette.wikia.nocookie.net/pokemon/images/4/4d/Type_Fire.gif'
+        },
+        {
+            name: 'water',
+            imageUrl: 'https://vignette.wikia.nocookie.net/pokemon/images/e/ed/Type_Water.gif'
+        },
+        {
+            name: 'grass',
+            imageUrl: 'https://vignette.wikia.nocookie.net/pokemon/images/4/46/Type_Grass.gif'
+        },
+        {
+            name: 'dragon',
+            imageUrl: 'https://vignette.wikia.nocookie.net/pokemon/images/2/26/Type_Dragon.gif'
+        },
+        {
+            name: 'electric',
+            imageUrl: 'https://vignette.wikia.nocookie.net/pokemon/images/a/aa/Type_Electric.gif'
+        },
+        {
+            name: 'ice',
+            imageUrl: 'https://vignette.wikia.nocookie.net/pokemon/images/8/84/Type_Ice.gif'
+        },
+        {
+            name: 'fighting',
+            imageUrl: 'https://vignette.wikia.nocookie.net/pokemon/images/6/6b/Type_Fighting.gif'
+        },
+        {
+            name: 'poison',
+            imageUrl: 'https://vignette.wikia.nocookie.net/pokemon/images/8/82/Type_Poison.gif'
+        },
+        {
+            name: 'ground',
+            imageUrl: 'https://vignette.wikia.nocookie.net/pokemon/images/1/1d/Type_Ground.gif'
+        },
+        {
+            name: 'flying',
+            imageUrl: 'https://vignette.wikia.nocookie.net/pokemon/images/4/4b/Type_Flying.gif'
+        },
+        {
+            name: 'psychic',
+            imageUrl: 'https://vignette.wikia.nocookie.net/pokemon/images/6/65/Type_Psychic.gif'
+        },
+        {
+            name: 'bug',
+            imageUrl: 'https://vignette.wikia.nocookie.net/pokemon/images/6/64/Type_Bug.gif'
+        },
+        {
+            name: 'rock',
+            imageUrl: 'https://vignette.wikia.nocookie.net/pokemon/images/b/b3/Type_Rock.gif'
+        },
+        {
+            name: 'ghost',
+            imageUrl: 'https://vignette.wikia.nocookie.net/pokemon/images/f/f2/Type_Ghost.gif'
+        },
+        {
+            name: 'dragon',
+            imageUrl: 'https://vignette.wikia.nocookie.net/pokemon/images/2/26/Type_Dragon.gif'
+        },
+        {
+            name: 'dark',
+            imageUrl: 'https://vignette.wikia.nocookie.net/pokemon/images/0/0d/Type_Dark.gif'
+        },
+        {
+            name: 'steel',
+            imageUrl: 'https://vignette.wikia.nocookie.net/pokemon/images/a/ab/Type_Steel.gif'
+        },
+        {
+            name: 'fairy',
+            imageUrl: 'https://vignette.wikia.nocookie.net/pokemon/images/7/74/Type_Fairy.gif'
+        }
+    ]
     pokemons: Pokemon[] = []
     team: Pokemon[] = []
     teamScreen
