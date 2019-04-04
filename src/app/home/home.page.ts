@@ -33,6 +33,10 @@ export class HomePage {
         })
     }
 
+    list_profil_page(){
+        this.router.navigate(['/list-profil'])
+    }
+
     inputSearch: string
     pokemons: Pokemon[] = []
     favoritePokemonsSaved: Pokemon[] = []
