@@ -28,6 +28,10 @@ export class HomePage {
         this.getPokemons()
     }
 
+    list_profil_page(){
+        this.router.navigate(['/list-profil'])
+    }
+
     inputSearch: string
     pokemons: Pokemon[] = []
     team: Pokemon[] = []
