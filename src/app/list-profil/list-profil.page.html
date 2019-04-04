@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>list-profil</ion-title>
+    <ion-title>Liste des profils</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -9,6 +9,14 @@
     <ion-row>
       <ion-col col="3">
           <ion-button (click)="fight_page()">Let's Fight !</ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col="5">
+          <ion-button (click)="getProfil()">Create DB</ion-button>
+        <div class="container_profil" *ngFor="let profil of profils">
+          
+        </div>
       </ion-col>
     </ion-row>
   </ion-grid>
