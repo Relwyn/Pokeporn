@@ -15,6 +15,6 @@ export class PokeApiService {
   }
 
   getPokemonByName(name) {
-    return this.http.get(this.apiUrl + name);
+    return this.http.get(this.apiUrl + name)
   }
 }

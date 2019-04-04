@@ -8,14 +8,28 @@
   <ion-grid>
     <ion-row>
       <ion-col col="3">
-          <ion-button (click)="fight_page()">Let's Fight !</ion-button>
+         <ion-button (click)="login_page()">Connexion</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  <ion-grid>
+    <ion-row>
+      <ion-col col="3">
+        <ion-item>
+            <ion-input [(ngModel)]="nameFighter"></ion-input>
+            <ion-button (click)="fight()"> AddVoyage </ion-button>
+        </ion-item>
       </ion-col>
     </ion-row>
-    <ion-row>
+    <ion-row *ngFor="let user of users">
       <ion-col col="5">
-          <ion-button (click)="getProfil()">Create DB</ion-button>
-        <div class="container_profil" *ngFor="let profil of profils">
-          
+        <div class="container_profil" (click)="validPlayer(user.key)">
+          {{user.name}}
+        </div>
+      </ion-col>
+      <ion-col col="7">
+        <div *ngFor="let profil of user.profils">
+          <ion-button (click)="selectProfil(profil)">{{profil.name}}</ion-button>
         </div>
       </ion-col>
     </ion-row>

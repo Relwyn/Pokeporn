@@ -33,9 +33,10 @@
         <ion-button (click)="searchByName()">Rechercher</ion-button>
       </ion-item>
       <ion-item *ngFor="let pokemon of pokemons">
-        <ion-icon (click)="setPokemonAsFavorite(pokemon.id)" *ngIf="!pokemon.favorite" name="star-outline"></ion-icon>
-        <ion-icon (click)="setPokemonAsFavorite(pokemon.id)" *ngIf="pokemon.favorite" name="star"></ion-icon>
-        <p (click)="searchByName(pokemon.name)">{{ pokemon.name }}</p>
+        <p>{{ pokemon.name }}</p>
+        <ion-button (click)="addToTeam(pokemon)">Add to team</ion-button>
+        <ion-button (click)="openPokedex(pokemon)">Pokedex</ion-button>
+        <ion-button (click)="removePokemon(pokemon)">Remove</ion-button>
       </ion-item>
     </ion-list>
   </div>
