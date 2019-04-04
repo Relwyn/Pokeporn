@@ -44,8 +44,8 @@
             </ion-col>
             <ion-col>
               <span *ngFor="let pokemonType of pokemon.types">
-                <span *ngFor="let type of types">
-                  <img *ngIf="pokemonType.name === type.name" src="{{ type.imageUrl }}" alt="">
+                  <span *ngFor="let type of types">
+                  <img *ngIf="pokemonType.type.name === type.name" src="{{ type.imageUrl }}" alt="">
                 </span>
               </span>
             </ion-col>
