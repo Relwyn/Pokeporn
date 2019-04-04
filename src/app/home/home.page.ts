@@ -8,8 +8,7 @@ import { ToastController } from '@ionic/angular'
 class Pokemon {
     id: number
     name: string
-    url: string
-    sprites: any;
+    sprites: any
 }
 
 @Component({
@@ -30,9 +29,11 @@ export class HomePage {
         this.getTeam()
     }
 
+
     inputSearch: string
     pokemons: Pokemon[] = []
     team: Pokemon[] = []
+    teamScreen
 
     getPokemons() {
 
@@ -87,6 +88,16 @@ export class HomePage {
         this.saveItemInLocalStorage('team', this.team)
     }
 
+    removeFromTeam(index) {
+
+        this.team.splice(index, 1)
+
+        this.saveItemInLocalStorage('team', this.team)
+
+        this.openTeamScreen()
+        this.teamScreen.dismiss()
+    }
+
     async searchByName(name = this.inputSearch, openPokedex = true) {
 
         this.pokeApiService.getPokemonByName(name).subscribe((pokemon) => {
@@ -96,7 +107,6 @@ export class HomePage {
 
             return pokemon
         }, error => {
-            console.log(error)
             this.showToast(JSON.stringify(error))
         })
     }
@@ -150,9 +160,11 @@ export class HomePage {
         })
 
         await alert.present()
+
+        return alert
     }
 
-    async openTeamScreen(pokemon = false) {
+    async openTeamScreen() {
 
         let message: string =
             '<ion-grid>' +
@@ -163,13 +175,13 @@ export class HomePage {
             message+=
                 '<ion-col>' +
                     '<ion-row>' +
-                        '<span>' + pokemon.name + '</span>' +
+                        '<span>' + (index + 1) + ' ' + pokemon.name + '</span>' +
                     '</ion-row>' +
                 '<ion-row>' +
                     '<img src="' + pokemon.sprites.front_default + '">' +
                 '</ion-row>' +
                     '<ion-row>' +
-                        '<ion-button id="teamRemoveButton">Remove</ion-button>' +
+                        '<ion-button class="teamRemoveButton" id="'+ index + '">Remove</ion-button>' +
                     '</ion-row>' +
                 '</ion-col>'
 
@@ -179,9 +191,7 @@ export class HomePage {
                 '</ion-row>' +
             '</ion-grid>'
 
-        console.log(message)
-
-        const alert = await this.alert.create({
+        this.teamScreen = await this.alert.create({
             header: 'Team',
             message: message,
             buttons: [
@@ -193,7 +203,9 @@ export class HomePage {
             ]
         })
 
-        await alert.present();
+        this.launchListenerOnTeamRemoveButton()
+
+        await this.teamScreen.present()
     }
 
     async showToast(message) {
@@ -206,6 +218,20 @@ export class HomePage {
         })
 
         toast.present()
+    }
+
+    launchListenerOnTeamRemoveButton() {
+
+        const self = this
+
+        let teamRemoveButtons = document.getElementsByClassName('teamRemoveButton')
+
+        for (let teamRemoveButton of teamRemoveButtons) {
+            teamRemoveButton.addEventListener('click', function() {
+                self.removeFromTeam(teamRemoveButton.id)
+            })
+        }
+
     }
 
     list_profil_page(){
