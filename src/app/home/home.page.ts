@@ -63,7 +63,12 @@ export class HomePage {
 
     savePokemon(pokemon) {
 
-        this.pokemons.push(pokemon)
+        console.log(pokemon.id)
+
+        if (this.isAlreadyInArray(this.pokemons, pokemon.id))
+            this.showToast('Pokemon already in the list')
+        else
+            this.pokemons.push(pokemon)
 
         this.saveItemInLocalStorage('pokemons', this.pokemons)
     }
@@ -263,5 +268,25 @@ export class HomePage {
         types.substring(0, types.length - 1)
 
         return types
+    }
+
+    isAlreadyInArray(array, id) {
+
+        let isAlreadyInArray: boolean = false
+
+        array.forEach(function(item) {
+
+            console.log(item.id)
+            console.log('adding:')
+            console.log(id)
+
+            console.log(item.id == id)
+
+            if (item.id == id)
+                isAlreadyInArray = true
+
+        })
+
+        return isAlreadyInArray
     }
 }
