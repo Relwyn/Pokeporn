@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-profil',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListProfilPage implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { 
+    
+  }
 
   ngOnInit() {
   }
-
+  login_page(){
+    this.router.navigate(['/login'])
+  }
 }
