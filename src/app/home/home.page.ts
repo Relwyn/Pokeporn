@@ -25,12 +25,6 @@ export class HomePage {
         private localStorage: Storage
     ) {
         this.getPokemons()
-
-        this.localStorage.set('favoritePokemons', [])
-
-        this.localStorage.get('favoritePokemons').then((val) => {
-            console.log(val)
-        })
     }
 
     list_profil_page(){
@@ -43,28 +37,45 @@ export class HomePage {
 
     getPokemons() {
 
-        const self = this;
+        const self = this
 
       this.pokeApiService.getPokemons().subscribe((val) => {
-          const res: any = val;
-          res.results.forEach(function(result, index) {
-              result.id = index;
-              result.favorite = false;
-              self.pokemons.push(result);
-          });
+
+          const res: any = val
 
           res.results.forEach(function(element, index) {
               element.id = index
-              element.favorite = false
+
+              self.localStorage.get('favoritePokemons').then((favoritePokemons) => {
+
+                  self.favoritePokemonsSaved = favoritePokemons
+
+                  self.favoritePokemonsSaved.forEach(function(favoritePokemon) {
+
+                      if(favoritePokemon.name === element.name)
+                          element.favorite = true
+
+                  })
+              })
+
               self.pokemons.push(element)
           })
       })
     }
 
     setPokemonAsFavorite(id) {
-        this.pokemons[this.getIndexWithId(id)].favorite = !this.pokemons[this.getIndexWithId(id)].favorite
 
-        this.favoritePokemonsSaved.push(this.pokemons[this.getIndexWithId(id)])
+        let index = this.getIndexWithId(this.pokemons, id)
+
+        this.pokemons[index].favorite = !this.pokemons[index].favorite
+
+        if (this.pokemons[index].favorite)
+            this.favoritePokemonsSaved.push(this.pokemons[index])
+        else
+            this.favoritePokemonsSaved.splice(this.getIndexWithId(this.favoritePokemonsSaved, id), 1)
+
+        console.log(this.favoritePokemonsSaved)
+
         this.pushItemInLocalStorage('favoritePokemons', this.favoritePokemonsSaved)
     }
 
@@ -72,8 +83,8 @@ export class HomePage {
         this.localStorage.set(name, item)
     }
 
-    getIndexWithId(id) {
-        return this.pokemons.findIndex(pokemon => pokemon.id === id);
+    getIndexWithId(array, id) {
+        return array.findIndex(item => item.id === id)
     }
 
     searchByName(name = this.inputSearch) {
