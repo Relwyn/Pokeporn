@@ -3,8 +3,7 @@ import { Router } from '@angular/router'
 import { PokeApiService } from '../poke-api.service'
 import { AlertController } from '@ionic/angular'
 import { Storage } from '@ionic/storage'
-import {calculateSizes} from "@angular-devkit/build-angular/src/angular-cli-files/utilities/bundle-calculator";
-
+import { ToastController } from '@ionic/angular';
 class Pokemon {
     id: number;
     name: string;
@@ -23,9 +22,22 @@ export class HomePage {
         private router: Router,
         private pokeApiService: PokeApiService,
         private modal: AlertController,
-        private localStorage: Storage
+        private localStorage: Storage,
+        private toast: ToastController,
     ) {
         this.getPokemons()
+    }
+
+    async showToastError(error) {
+        const toast = await this.toast.create({
+            message: `${error}`,
+            duration: 10000,
+            showCloseButton: true,
+            position: 'top',
+            closeButtonText: 'Done'
+        });
+
+        toast.present()
     }
 
     list_profil_page(){
@@ -80,6 +92,9 @@ export class HomePage {
                 this.openPokedex(pokemon)
 
             return pokemon
+        }, error => {
+            console.log(error)
+            this.showToastError(JSON.stringify(error))
         })
     }
 
