@@ -313,7 +313,8 @@ export class HomePage {
 
         let teamRemoveButtons = document.getElementsByClassName('teamRemoveButton')
 
-        for (let teamRemoveButton of teamRemoveButtons) {
+
+        for (let teamRemoveButton of teamRemoveButtons as any) {
             teamRemoveButton.addEventListener('click', function() {
                 self.removeFromTeam(teamRemoveButton.id)
             })
