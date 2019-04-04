@@ -9,6 +9,7 @@ class Pokemon {
     id: number
     name: string
     url: string
+    sprites: any;
 }
 
 @Component({
