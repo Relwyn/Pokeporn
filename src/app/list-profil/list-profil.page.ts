@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
+import 'firebase/database';
 import { stringify } from '@angular/core/src/util';
 import {TransfertDataService} from '../transfert-data.service';
 
@@ -12,8 +13,9 @@ import {TransfertDataService} from '../transfert-data.service';
 export class ListProfilPage implements OnInit {
 
   public users:any;
-  profil : any;
+  public profil : any;
   public nameFighter: any;
+  public Data : any;
 
   constructor(
     private router: Router,
@@ -25,15 +27,13 @@ export class ListProfilPage implements OnInit {
     this.getUsers()
   }
 
-  fight_page(){
-    //this.router.navigate(['/fight'])
-  }
   login_page(){
     this.router.navigate(['/login'])
   }
 
   fight() {
-    console.log(this.nameFighter);
+    console.log("Fighting against : " + this.nameFighter + " !");
+    this.sendData()
   }
 
   getUsers(){
@@ -49,6 +49,46 @@ export class ListProfilPage implements OnInit {
     this.profil = profil
   }
 
+  sendData(){
+    let unProfilToken = {
+      name: "PD",
+      desc: "Bois Tier",
+      pokemon: [3, 1, 2]
+      }
+    let unProfilToken2 = {
+      name: "unPD",
+      desc: "Ciment Tier",
+      pokemon: [4, 6, 5]
+      }
+    let tab = ['user1', unProfilToken, 'user2', unProfilToken2]
+    this.transfertDataService.setData(tab);
+    this.router.navigate(['/fight']);
+  }
+
+  
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+//Update en base
+async update(){
+
+  let test: any[] = [];
+
+  await firebase.database().ref('pokedb/users').on('value', resp=>{
+    test = resp.val()
+  })
+  test.push({'test':'test'})
+  console.log(test);
+
+  let pokemon = firebase.database().ref('pokedb')
+    pokemon.set({
+      users: test
+    });
+  
+}
+
+
+
+//Ajout des données en base
   setProfil(){
     let pokemon = firebase.database().ref('pokedb')
     let unProfilToken = {
@@ -64,28 +104,24 @@ export class ListProfilPage implements OnInit {
         profils:[unProfilToken]
       },
       {
-        name : "Gitan",
+        name : "Hugo",
         online: true,
         profils:[unProfilToken]
       },
       {
-        name : "Toto",
+        name : "Helori",
         online: true,
         profils:[unProfilToken]
       },
       {
-        name : "Titi",
+        name : "Nicolas",
         online: true,
         profils:[unProfilToken]
       }  
     ]
     })
   }
-
-  validPlayer(id){
-    console.log(id)
-  }
-
+///////////////////////////////////////////////////////////////////////////////////////////////
 
 }
 

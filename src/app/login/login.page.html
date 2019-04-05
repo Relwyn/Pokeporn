@@ -5,5 +5,31 @@
 </ion-header>
 
 <ion-content>
+  <div class="login">
+    
+      <div class="title">
+      POKEFIGHT
+      </div>
 
+     
+      <form (ngSubmit)="update()" #userForm="ngForm">
+      <div>
+          <label>E-mail</label>
+          <input type="email" name="email" [(ngModel)]="user.email">  
+      </div>
+
+      <div>
+          <label>Name</label>
+          <input type="text" name="name" [(ngModel)]="user.name">  
+      </div>
+      <div>
+          <label>Password</label>
+          <input type="password" name="password" [(ngModel)]="user.password" required minlength="7">  
+      </div>
+         <button type="submit">Register</button>
+    </form>
+    
+  </div>
+  
+ 
 </ion-content>
