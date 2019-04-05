@@ -26,9 +26,6 @@ export class ListProfilPage implements OnInit {
     this.getUsers()
   }
 
-  fight_page(){
-    //this.router.navigate(['/fight'])
-  }
   login_page(){
     this.router.navigate(['/login'])
   }
@@ -57,16 +54,18 @@ export class ListProfilPage implements OnInit {
       desc: "Bois Tier",
       pokemon: [3, 1, 2]
       }
-      let unProfilToken2 = {
-        name: "unPD",
-        desc: "Ciment Tier",
-        pokemon: [4, 6, 5]
-        }
+    let unProfilToken2 = {
+      name: "unPD",
+      desc: "Ciment Tier",
+      pokemon: [4, 6, 5]
+      }
     let tab = ['user1', unProfilToken, 'user2', unProfilToken2]
     this.transfertDataService.setData(tab);
     this.router.navigate(['/fight']);
   }
+
 ///////////////////////////////////////////////////////////////////////////////////////////////
+//Ajout des données en base
   setProfil(){
     let pokemon = firebase.database().ref('pokedb')
     let unProfilToken = {
@@ -99,7 +98,7 @@ export class ListProfilPage implements OnInit {
     ]
     })
   }
-
+///////////////////////////////////////////////////////////////////////////////////////////////
 
 }
 
