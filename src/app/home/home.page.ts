@@ -9,6 +9,8 @@ class Pokemon {
     id: number
     name: string
     sprites: any
+    abilities: []
+    types: any
 }
 
 class Types {
@@ -97,10 +99,6 @@ export class HomePage {
             imageUrl: 'https://vignette.wikia.nocookie.net/pokemon/images/f/f2/Type_Ghost.gif'
         },
         {
-            name: 'dragon',
-            imageUrl: 'https://vignette.wikia.nocookie.net/pokemon/images/2/26/Type_Dragon.gif'
-        },
-        {
             name: 'dark',
             imageUrl: 'https://vignette.wikia.nocookie.net/pokemon/images/0/0d/Type_Dark.gif'
         },
@@ -143,14 +141,31 @@ export class HomePage {
         })
     }
 
-    savePokemon(pokemon) {
+    async savePokemon(pokemon) {
 
-        console.log(pokemon.id)
+        const self = this
 
         if (this.isAlreadyInArray(this.pokemons, pokemon.id))
             this.showToast('Pokemon already in the list')
-        else
+        else {
+
+            pokemon.abilities.forEach(function(ability, index) {
+
+                let id = ability.ability.url.split("/")[6]
+                let tempResult
+
+                self.pokeApiService.getAbilityBy(id).subscribe((result) => {
+                    tempResult = result
+                    pokemon.abilities[index].ability.text = tempResult.effect_entries[0].effect
+                }, error => {
+                    self.showToast(JSON.stringify(error))
+                })
+            })
+
+            console.log(pokemon)
+
             this.pokemons.push(pokemon)
+        }
 
         this.saveItemInLocalStorage('pokemons', this.pokemons)
     }
@@ -359,15 +374,8 @@ export class HomePage {
 
         array.forEach(function(item) {
 
-            console.log(item.id)
-            console.log('adding:')
-            console.log(id)
-
-            console.log(item.id == id)
-
             if (item.id == id)
                 isAlreadyInArray = true
-
         })
 
         return isAlreadyInArray
