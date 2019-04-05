@@ -12,8 +12,9 @@ import {TransfertDataService} from '../transfert-data.service';
 export class ListProfilPage implements OnInit {
 
   public users:any;
-  profil : any;
+  public profil : any;
   public nameFighter: any;
+  public Data : any;
 
   constructor(
     private router: Router,
@@ -33,7 +34,8 @@ export class ListProfilPage implements OnInit {
   }
 
   fight() {
-    console.log(this.nameFighter);
+    console.log("Fighting against : " + this.nameFighter + " !");
+    this.sendData()
   }
 
   getUsers(){
@@ -49,6 +51,22 @@ export class ListProfilPage implements OnInit {
     this.profil = profil
   }
 
+  sendData(){
+    let unProfilToken = {
+      name: "PD",
+      desc: "Bois Tier",
+      pokemon: [3, 1, 2]
+      }
+      let unProfilToken2 = {
+        name: "unPD",
+        desc: "Ciment Tier",
+        pokemon: [4, 6, 5]
+        }
+    let tab = ['user1', unProfilToken, 'user2', unProfilToken2]
+    this.transfertDataService.setData(tab);
+    this.router.navigate(['/fight']);
+  }
+///////////////////////////////////////////////////////////////////////////////////////////////
   setProfil(){
     let pokemon = firebase.database().ref('pokedb')
     let unProfilToken = {
@@ -64,26 +82,22 @@ export class ListProfilPage implements OnInit {
         profils:[unProfilToken]
       },
       {
-        name : "Gitan",
+        name : "Hugo",
         online: true,
         profils:[unProfilToken]
       },
       {
-        name : "Toto",
+        name : "Helori",
         online: true,
         profils:[unProfilToken]
       },
       {
-        name : "Titi",
+        name : "Nicolas",
         online: true,
         profils:[unProfilToken]
       }  
     ]
     })
-  }
-
-  validPlayer(id){
-    console.log(id)
   }
 
 

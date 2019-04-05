@@ -17,13 +17,13 @@
       <ion-col col="3">
         <ion-item>
             <ion-input [(ngModel)]="nameFighter"></ion-input>
-            <ion-button (click)="fight()"> AddVoyage </ion-button>
+            <ion-button (click)="fight()"> Let's Fight ! </ion-button>
         </ion-item>
       </ion-col>
     </ion-row>
     <ion-row *ngFor="let user of users">
       <ion-col col="5">
-        <div class="container_profil" (click)="validPlayer(user.key)">
+        <div class="container_profil">
           {{user.name}}
         </div>
       </ion-col>
