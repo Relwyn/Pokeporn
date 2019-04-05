@@ -149,36 +149,8 @@ export class HomePage {
 
         if (this.isAlreadyInArray(this.pokemons, pokemon.id))
             this.showToast('Pokemon already in the list')
-        else {
-
-            new Promise(async(resolve, reject) => {
-
-                for (let ability of pokemon.abilities) {
-
-                    let index = 0
-                    let id = ability.ability.url.split("/")[6]
-                    let tempResult
-                    let result = await self.getAbilityById(id)
-
-                    tempResult = result
-
-                    console.log("index:")
-                    console.log(index)
-                    console.log("pokemon :")
-                    console.log(pokemon)
-                    console.log("result :")
-                    console.log(tempResult)
-                    pokemon.abilities[index].ability.text = tempResult.effect_entries[0].effect
-
-                    ++index
-                }
-
-                console.log("pokemon to push :")
-                console.log(pokemon)
-
-                this.pokemons.push(pokemon)
-            })
-        }
+        else
+            this.pokemons.push(pokemon)
 
         this.saveItemInLocalStorage('pokemons', this.pokemons)
     }
