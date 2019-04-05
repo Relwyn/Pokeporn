@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
+import 'firebase/database';
 import { stringify } from '@angular/core/src/util';
 import {TransfertDataService} from '../transfert-data.service';
 
@@ -64,7 +65,29 @@ export class ListProfilPage implements OnInit {
     this.router.navigate(['/fight']);
   }
 
+  
+
 ///////////////////////////////////////////////////////////////////////////////////////////////
+//Update en base
+async update(){
+
+  let test: any[] = [];
+
+  await firebase.database().ref('pokedb/users').on('value', resp=>{
+    test = resp.val()
+  })
+  test.push({'test':'test'})
+  console.log(test);
+
+  let pokemon = firebase.database().ref('pokedb')
+    pokemon.set({
+      users: test
+    });
+  
+}
+
+
+
 //Ajout des données en base
   setProfil(){
     let pokemon = firebase.database().ref('pokedb')
