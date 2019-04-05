@@ -30,7 +30,7 @@
   <div class="ion-padding">
     <ion-list>
       <ion-item>
-        <ion-input [(ngModel)]="inputSearch" placeholder="Chercher par nom"></ion-input>
+        <ion-input [(ngModel)]="inputSearch" placeholder="Chercher par nom" (keyup.enter)="searchByName()"></ion-input>
         <ion-button (click)="searchByName()">Rechercher</ion-button>
       </ion-item>
       <ion-item *ngFor="let pokemon of pokemons">
