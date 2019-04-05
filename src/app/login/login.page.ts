@@ -1,14 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase';
 
-var cpt: 0
-
-export class User{
-  email : string;
-  nom : string
-  password: string;
-
-}
 
 @Component({
   selector: 'app-login',
@@ -18,25 +10,41 @@ export class User{
 
 export class LoginPage {
 
- user = new User();
+  public email : string;
+  public name : string
+  public password: string;
+  public test: any;
+  //user = new User();
 
-  constructor() { }
+  constructor() { 
+    this.getUsers()
+  }
   
-  async update(){
-
-    let test: any[] = [];
-  
-    await firebase.database().ref('pokedb/users').on('value', resp=>{
-      test = resp.val()
+ async update(){
+    await this.getUsers()
+    let unProfilToken = {
+      name: "PD",
+      desc: "Bois Tier",
+      pokemon: [3, 1, 2]
+      }
+    this.test.push({
+      name : "Bastien",
+      online: true,
+      profils:[unProfilToken]
     })
-    test.push({'test':'test'})
-    console.log(test);
   
-    // let pokemon = firebase.database().ref('pokedb')
-    //   pokemon.set({
-    //     users: test
-    //   });
+    let pokemon = firebase.database().ref('pokedb')
+      pokemon.set({
+        users: this.test
+      });
     
+  }
+
+  getUsers() {
+    firebase.database().ref('pokedb/users').on('value', resp=>{
+      this.test = resp.val()
+      console.log(this.test)
+    })
   }
 
   
