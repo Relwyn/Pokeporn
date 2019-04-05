@@ -4,6 +4,7 @@ import { PokeApiService } from '../poke-api.service'
 import { AlertController } from '@ionic/angular'
 import { Storage } from '@ionic/storage'
 import { ToastController } from '@ionic/angular'
+import { HttpClient } from '@angular/common/http'
 
 class Pokemon {
     id: number
@@ -30,7 +31,8 @@ export class HomePage {
         private pokeApiService: PokeApiService,
         private alert: AlertController,
         private localStorage: Storage,
-        private toast: ToastController
+        private toast: ToastController,
+        private http: HttpClient
     ) {
         this.getPokemons()
         this.getTeam()
@@ -149,41 +151,42 @@ export class HomePage {
             this.showToast('Pokemon already in the list')
         else {
 
-            for (let ability of pokemon.abilities) {
+            new Promise(async(resolve, reject) => {
 
-                let index = 0
-                let id = ability.ability.url.split("/")[6]
-                let tempResult
+                for (let ability of pokemon.abilities) {
 
-                await self.pokeApiService.getAbilityBy(id).subscribe((result) => {
-
+                    let index = 0
+                    let id = ability.ability.url.split("/")[6]
+                    let tempResult
+                    let result = await self.getAbilityById(id)
 
                     tempResult = result
-                    console.log("result of request :")
-                    console.log(result)
+
                     console.log("index:")
                     console.log(index)
-                    pokemon.abilities[index].ability.text = this.assignValue(tempResult.effect_entries[0].effect)
+                    console.log("pokemon :")
+                    console.log(pokemon)
+                    console.log("result :")
+                    console.log(tempResult)
+                    pokemon.abilities[index].ability.text = tempResult.effect_entries[0].effect
 
                     ++index
-                }, error => {
-                    self.showToast(JSON.stringify(error))
-                })
-            }
+                }
 
-            console.log("pokemon to push :")
-            console.log(pokemon)
+                console.log("pokemon to push :")
+                console.log(pokemon)
 
-            this.pokemons.push(pokemon)
+                this.pokemons.push(pokemon)
+            })
         }
 
         this.saveItemInLocalStorage('pokemons', this.pokemons)
     }
 
-    async assignValue(value) {
-
-        return value
-
+    getAbilityById(id) {
+        let result = this.http.get(this.pokeApiService.apiUrl + 'ability/' + id)
+            console.log(result)
+        return result
     }
 
     removePokemon(pokemon) {
