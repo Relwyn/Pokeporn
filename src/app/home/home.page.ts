@@ -149,25 +149,41 @@ export class HomePage {
             this.showToast('Pokemon already in the list')
         else {
 
-            pokemon.abilities.forEach(function(ability, index) {
+            for (let ability of pokemon.abilities) {
 
+                let index = 0
                 let id = ability.ability.url.split("/")[6]
                 let tempResult
 
-                self.pokeApiService.getAbilityBy(id).subscribe((result) => {
+                await self.pokeApiService.getAbilityBy(id).subscribe((result) => {
+
+
                     tempResult = result
-                    pokemon.abilities[index].ability.text = tempResult.effect_entries[0].effect
+                    console.log("result of request :")
+                    console.log(result)
+                    console.log("index:")
+                    console.log(index)
+                    pokemon.abilities[index].ability.text = this.assignValue(tempResult.effect_entries[0].effect)
+
+                    ++index
                 }, error => {
                     self.showToast(JSON.stringify(error))
                 })
-            })
+            }
 
+            console.log("pokemon to push :")
             console.log(pokemon)
 
             this.pokemons.push(pokemon)
         }
 
         this.saveItemInLocalStorage('pokemons', this.pokemons)
+    }
+
+    async assignValue(value) {
+
+        return value
+
     }
 
     removePokemon(pokemon) {
