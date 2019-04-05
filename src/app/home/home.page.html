@@ -54,10 +54,11 @@
               </ion-row>
             </ion-col>
             <ion-col>
-                <ion-card *ngFor="let ability of pokemon.abilities">
+                <ion-card *ngFor="let ability of []">
                   <ion-card-header class="ion-text-uppercase">
                     <ion-card-subtitle class="ion-text">
                       <b>{{ ability.ability.name }}</b>
+                      {{ability.ability | json}}
                     </ion-card-subtitle>
                   </ion-card-header>
                   <ion-card-content>
