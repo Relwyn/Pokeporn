@@ -10,22 +10,27 @@ import * as firebase from 'firebase';
   styleUrls: ['./fight.page.scss'],
 })
 export class FightPage implements OnInit {
+  USER = {
+    name: 'Bastien'
+  };
   data: any;
+  turn: any;
   constructor(
       private router: Router,
       private toast: ToastController,
       private localStorage: Storage,
       private transfertDataService: TransfertDataService
   ) {
-    this.data = this.transfertDataService.getData();
-    this.fight()
+    //this.data = this.transfertDataService.getData();
+    //this.fight()
   }
 
   ngOnInit() {
   }
 
+  getTurn = firebase.database().ref('fightrooms/1')
 /*
-  profil = firebase.database().ref('pokedb/users')
+
 
   getUser(name){
     return firebase.database().ref(`pokedb/users/${name}`).on('value', resp=>{
@@ -68,15 +73,13 @@ export class FightPage implements OnInit {
   }
 
   async fight(){
+    await this.getTurn.on('value', res => {
+      this.turn = res.val().turn;
+    })
+    console.log(this.turn);
     console.log(this.data);
-    //let user1:any  = await this.getUser('Hugo')
-    //console.log("fight " + JSON.stringify(user1));
-    /*let user2:any = await this.getUser('Nico')
-    let profil1:any = await this.getProfil()
-    let profil2:any = await this.getProfil2()
-    console.log("USER 1" + user1)
-    console.log(user2)
-    if(!user1.online || !user2.online){
+    //TODO: Check the name in the input
+    /*if(!this.data[0].online || !this.data[1].online){
       this.showToast("Il y a un problème de connexion")
           .catch(error => {
             console.log("Impossible d'afficher le toast PB de connexion")
@@ -85,7 +88,39 @@ export class FightPage implements OnInit {
     }
     let turn = Math.round(Math.random())
     console.log(turn)*/
+    //check who start
+
+  }
+
+  myturn(){
+    return true;
+  }
+
+  attack(){
+    this.getTurn.on('value', res => {
+      this.turn = res;
+      console.log(this.turn)
+    })
+    console.log(this.data);
+
+  }
+
+  endGame(){
+    //set turn to -1
+  }
 
 
+
+  checkTurn(){
+    if(this.turn === -1){
+      let turn = Math.round(Math.random())
+      console.log("Reseult of random : " + turn)
+    }
+    else if (this) {
+      console.log("test")
+    }
+    else{
+
+    }
   }
 }
