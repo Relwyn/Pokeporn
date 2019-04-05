@@ -39,15 +39,31 @@
             <ion-col>
               <ion-row>
                 <img src="{{pokemon.sprites.front_default}}">
-                <ion-title>{{ pokemon.name }}</ion-title>
+                <ion-row>
+                  <ion-col>
+                    <ion-title class="ion-text-capitalize">
+                      {{ pokemon.name }}
+                    </ion-title>
+                    <div class="type-badge" *ngFor="let pokemonType of pokemon.types">
+                      <span *ngFor="let type of types" class="ion-margin-vertical">
+                        <img *ngIf="pokemonType.type.name === type.name" src="{{ type.imageUrl }}" alt="">
+                      </span>
+                    </div>
+                  </ion-col>
+                </ion-row>
               </ion-row>
             </ion-col>
             <ion-col>
-              <span *ngFor="let pokemonType of pokemon.types">
-                  <span *ngFor="let type of types">
-                  <img *ngIf="pokemonType.type.name === type.name" src="{{ type.imageUrl }}" alt="">
-                </span>
-              </span>
+                <ion-card *ngFor="let ability of pokemon.abilities">
+                  <ion-card-header class="ion-text-uppercase">
+                    <ion-card-subtitle class="ion-text">
+                      <b>{{ ability.ability.name }}</b>
+                    </ion-card-subtitle>
+                  </ion-card-header>
+                  <ion-card-content>
+                    {{ ability.ability.text }}
+                  </ion-card-content>
+                </ion-card>
             </ion-col>
             <ion-col>
               <ion-row>
@@ -56,14 +72,12 @@
                 <ion-button (click)="removePokemon(pokemon)"><ion-icon name="trash"></ion-icon></ion-button>
               </ion-row>
               <ion-row>
-                <ion-card class="ion-padding">
-                  <b>hp: </b>{{ pokemon.stats[5].base_stat }}
-                  <b>attack: </b>{{ pokemon.stats[4].base_stat }}
-                  <b>defense: </b>{{ pokemon.stats[3].base_stat }}
-                  <b>speed: </b>{{ pokemon.stats[0].base_stat }}
-                  <b>special-attack: </b>{{ pokemon.stats[2].base_stat }}
-                  <b>special-defense: </b>{{ pokemon.stats[1].base_stat }}
-                </ion-card>
+                <ion-badge color="light"><b class="ion-text-capitalize">hp: </b>{{ pokemon.stats[5].base_stat }}</ion-badge>
+                <ion-badge color="light"><b class="ion-text-capitalize">attack: </b>{{ pokemon.stats[4].base_stat }}</ion-badge>
+                <ion-badge color="light"><b class="ion-text-capitalize">defense: </b>{{ pokemon.stats[3].base_stat }}</ion-badge>
+                <ion-badge color="light"><b class="ion-text-capitalize">speed: </b>{{ pokemon.stats[0].base_stat }}</ion-badge>
+                <ion-badge color="light"><b class="ion-text-capitalize">special-attack: </b>{{ pokemon.stats[2].base_stat }}</ion-badge>
+                <ion-badge color="light"><b class="ion-text-capitalize">special-defense: </b>{{ pokemon.stats[1].base_stat }}</ion-badge>
               </ion-row>
             </ion-col>
           </ion-row>
