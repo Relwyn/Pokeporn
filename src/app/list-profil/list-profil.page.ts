@@ -16,7 +16,7 @@ export class ListProfilPage implements OnInit {
   public profil : any;
   public nameFighter: any;
   public Data : any;
-
+  public room = firebase.database().ref('fightrooms')
   constructor(
     private router: Router,
     private transfertDataService: TransfertDataService) { 
@@ -33,6 +33,7 @@ export class ListProfilPage implements OnInit {
 
   fight() {
     console.log("Fighting against : " + this.nameFighter + " !");
+    this.fightRoom()
     this.sendData()
   }
 
@@ -47,6 +48,17 @@ export class ListProfilPage implements OnInit {
 
   selectProfil(profil){
     this.profil = profil
+  }
+
+  fightRoom(){
+    let roomId = 1;
+      this.room.set(
+          {
+            user1: "Bastien",
+            user2: ""
+          })
+
+    return roomId;
   }
 
   sendData(){
