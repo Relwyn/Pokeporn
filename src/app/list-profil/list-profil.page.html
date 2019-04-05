@@ -16,7 +16,7 @@
     <ion-row>
       <ion-col col="3">
         <ion-item>
-            <ion-input [(ngModel)]="nameFighter" (keyup.enter)="fight()"></ion-input>
+            <ion-input [(ngModel)]="nameFighter" (keyup.enter)="fight()" placeholder="Entrez le nom de votre adversaire"></ion-input>
             <ion-button (click)="fight()"> Let's Fight ! </ion-button>
         </ion-item>
       </ion-col>
