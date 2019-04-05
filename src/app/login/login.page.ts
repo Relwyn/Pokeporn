@@ -37,8 +37,7 @@ export class LoginPage {
       pokemon.set({
         users: this.test
       });
-    
-  }
+    }
 
   getUsers() {
     firebase.database().ref('pokedb/users').on('value', resp=>{

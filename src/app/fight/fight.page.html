@@ -1,9 +1,12 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>fight</ion-title>
+    <ion-title>Fight</ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content>
-
+  <div padding class="background">
+    <ion-title id="J2">JOUEUR 2</ion-title>
+    <ion-title id="J1">JOUEUR 1</ion-title>
+    <ion-button id="ATT" *ngIf="myturn()" (click)="attack()">Attaquer</ion-button>
+  </div>
 </ion-content>

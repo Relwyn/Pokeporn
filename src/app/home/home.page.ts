@@ -199,7 +199,7 @@ export class HomePage {
     }
 
     addToTeam(pokemon) {
-
+        this.toast.dismiss()
         if (this.team.length < 6) {
             this.team.push(pokemon)
             this.showToast('Successfully added to team')
@@ -219,7 +219,7 @@ export class HomePage {
         this.teamScreen.dismiss()
     }
 
-    async searchByName(name = this.inputSearch, openPokedex = true) {
+    async searchByName(name = this.inputSearch.toLowerCase(), openPokedex = true) {
 
         this.pokeApiService.getPokemonByName(name).subscribe((pokemon) => {
 
